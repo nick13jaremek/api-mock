@@ -9,6 +9,7 @@ expressStub = require 'express'
 walkerStub = sinon.stub()
 SslSupportStub = sinon.stub()
 CorsSupportStub = sinon.stub()
+parseResultFormat = type: 'ast'
 
 ApiMock = proxyquire '../../src/api-mock', {
   'fs': fsStub
@@ -108,7 +109,7 @@ describe 'ApiMock class', () ->
               {}
             sinon.stub fsStub, 'readFileSync', (path, enc) ->
               {}
-            sinon.stub protagonistStub, 'parse', (data, callback) ->
+            sinon.stub protagonistStub, 'parse', (data, parseResultFormat, callback) ->
               result =
                 ast:
                   resourceGroups: [
@@ -139,7 +140,7 @@ describe 'ApiMock class', () ->
               throw new Error('Error starting server')
             sinon.stub fsStub, 'readFileSync', (path, enc) ->
               {}
-            sinon.stub protagonistStub, 'parse', (data, callback) ->
+            sinon.stub protagonistStub, 'parse', (data, parseResultFormat, callback) ->
               result =
                 ast:
                   resourceGroups: [
@@ -163,7 +164,7 @@ describe 'ApiMock class', () ->
             walkerStub.throws(new Error('Error walking routes'))
             sinon.stub fsStub, 'readFileSync', (path, enc) ->
               {}
-            sinon.stub protagonistStub, 'parse', (data, callback) ->
+            sinon.stub protagonistStub, 'parse', (data, parseResultFormat, callback) ->
               result =
                 ast:
                   resourceGroups: [
@@ -187,7 +188,7 @@ describe 'ApiMock class', () ->
         beforeEach () ->
           sinon.stub fsStub, 'readFileSync', (path, enc) ->
             {}
-          sinon.stub protagonistStub, 'parse', (data, callback) ->
+          sinon.stub protagonistStub, 'parse', (data, parseResultFormat, callback) ->
             callback(new Error('Error parsing blueprint'), null)
 
         afterEach () ->
